@@ -1,9 +1,0 @@
-{
-    "env" : {
-        "MYSQL_USER" : "admin",
-        "MYSQL_PASSWORD" : "admin123",
-        "MYSQL_DATABASE" : "TrabalhoEs",
-        "MYSQL_HOST" : "database-1.c5go8t0hkkfk.sa-east-1.rds.amazonaws.com",
-        "MYSQL_PORT" : "3306"
-    }
-}
