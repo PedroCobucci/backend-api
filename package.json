@@ -6,7 +6,9 @@
   "author": "pedroCobucci <pedro.cobucci@gooxxy.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec ts-node ./src/index.ts"
+    "dev": "nodemon --exec ts-node ./src/index.ts",
+    "migration:generate": "typeorm-ts-node-commonjs -d src/config/data-source.ts migration:generate ./src/migrations/default",
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/config/data-source.ts migration:run"
   },
   "devDependencies": {
     "@types/express": "^4.17.15",
