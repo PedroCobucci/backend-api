@@ -5,6 +5,7 @@ import { tipoUsuarioRepository } from "../repositories/tipoUsuarioRepository";
 import { usuarioRepository } from "../repositories/usuarioRespository";
 import { USUARIO } from "../entities/usuarios"
 import {UserDTOs } from "../models/usuarioDto";
+import { TIPO_USUARIO } from "../entities/tipoUsuario";
 
 export class UsuariosController {
     async create(req: Request, res: Response){
@@ -79,37 +80,35 @@ export class UsuariosController {
 
         const { cpf,nome,data_nasc,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,id_usuario } = req.body
 
-        //const usuario = usuarioRepository.findOneBy({CPF: cpf})
-
         var user = new UserDTOs(cpf, id_usuario, nome, data_nasc, telefone, email,true)
 
-
-       
         try{
-            var body = await usuarioRepository.findOneBy({CPF: cpf})
-            var newTipoUsuario = await tipoUsuarioRepository.findOneBy({TIPO: tipo})
-            var test = await tipoUsuarioRepository.preload(req.body)
 
-            if(newTipoUsuario && body){
-                //body.ID_TIPO_USUARIO = newTipoUsuario.TIPO_ID
-                const newUsuario = await usuarioRepository.update({CPF: cpf},{
-                    CPF: cpf,
-                    NOME: nome,
-                    DATA_NASCIMENTO: data_nasc,
-                    TELEFONE: telefone,
-                    EMAIL: email,
-                    ID_TIPO_USUARIO: body.ID_TIPO_USUARIO
+        const newTipoUsuariossss = await usuarioRepository.findOneBy({CPF: cpf})
+        var Y = await tipoUsuarioRepository.findOneBy({TIPO: tipo })
+        
+         if(newTipoUsuariossss && Y){
+            
+             newTipoUsuariossss.ID_TIPO_USUARIO = Y
+             await usuarioRepository.save(newTipoUsuariossss)
+        
+         }
 
-                })
-                return res.status(201).json(newUsuario)
-            }
+            return res.status(201).json(newTipoUsuariossss)
+        
         } catch (error){
             console.log(error)
-            res.status(500).json({message: 'Internal Server Error'})
+            return res.status(500).json({message: 'Internal Server Error'})
         }
        
 
 
+
+
+
+
+   
+ 
 
     }
 

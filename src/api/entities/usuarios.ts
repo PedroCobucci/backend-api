@@ -28,7 +28,7 @@ export class USUARIO{
     ATIVO: boolean
 
 
-    @ManyToOne(() => TIPO_USUARIO, TIPO_USUARIO => TIPO_USUARIO.USUARIO, {nullable: false,onDelete: "CASCADE"})
+    @ManyToOne(() => TIPO_USUARIO, TIPO_USUARIO => TIPO_USUARIO.USUARIO, {nullable: false,onDelete: "CASCADE", onUpdate: "CASCADE"})
     @JoinColumn({name: "ID_TIPO_USUARIO"})
     ID_TIPO_USUARIO: TIPO_USUARIO
 

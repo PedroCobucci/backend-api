@@ -40,4 +40,6 @@ export class tipoUsuarioController{
             return res.status(500).json({message: 'Internal Serve Error'})
         }
     }
+
+    
 }
