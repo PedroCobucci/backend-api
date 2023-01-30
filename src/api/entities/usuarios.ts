@@ -27,6 +27,12 @@ export class USUARIO{
     @Column({type: 'boolean'})
     ATIVO: boolean
 
+    @Column({type: 'varchar', length: 255})
+    SENHA: string
+
+    @Column({type: 'varchar', length:20})
+    USERNAME: string
+
 
     @ManyToOne(() => TIPO_USUARIO, TIPO_USUARIO => TIPO_USUARIO.USUARIO, {nullable: false,onDelete: "CASCADE", onUpdate: "CASCADE"})
     @JoinColumn({name: "ID_TIPO_USUARIO"})
