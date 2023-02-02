@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ANIMAL } from "./animais";
 import { ENDERECO } from "./enderecos";
 import { MEDICO } from "./medicos";
 import { TIPO_USUARIO } from "./tipoUsuario";
@@ -43,4 +44,7 @@ export class USUARIO{
 
     @OneToOne(() => MEDICO, MEDICO => MEDICO.ID_USUARIO, {onDelete: "CASCADE"})
     USUARIO_MEDICO: MEDICO
+
+    @OneToMany(() => ANIMAL, ANIMAL => ANIMAL.ID_TUTOR, {onDelete: 'CASCADE'})
+    ANIMAL_DE_ESTIMACAO: ANIMAL
 }

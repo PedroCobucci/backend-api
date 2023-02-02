@@ -31,8 +31,11 @@ export class CONSULTA{
     @Column({type: 'int'})
     STATUS: number
 
+    @Column({type: 'boolean'})
+    ATIVO: boolean
+
     @OneToOne(() => AVALIACAO, AVALIACAO => AVALIACAO.ID_CONSULTA_REALIZADA)
-    ID_CONSULTA_REALIZADA: AVALIACAO
+    ID_AVALIACAO_REALIZADA: AVALIACAO
 
 
 }

@@ -9,10 +9,10 @@ import { USUARIO } from './usuarios'
 export class AVALIACAO{
 
     @PrimaryGeneratedColumn()
-    ID_AVALIACAO: Number
+    ID_AVALIACAO: number
 
     @Column({type: 'int'})
-    NOTA: Number
+    NOTA: number
 
     @ManyToOne(() => MEDICO, MEDICO => MEDICO.ID_MEDICO, {nullable: false})
     @JoinColumn({name: 'ID_MEDICO_RESPONSAVEL'})

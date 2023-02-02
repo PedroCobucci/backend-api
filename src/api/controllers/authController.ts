@@ -10,7 +10,7 @@ export class AuthController {
 
             const logarUsuario = await usuarioRepository.findOneBy({USERNAME: username, SENHA: senha, ATIVO: true})
 
-            return logarUsuario ? res.status(200).json({auth: 'true'}) : res.status(401).json({message: 'Unauthorized'})
+            return logarUsuario ? res.status(200).json({auth: logarUsuario.CPF}) : res.status(401).json({message: 'Unauthorized'})
 
         }catch (error){
             return res.status(500).json({message: 'Internal Server Error'})
