@@ -11,7 +11,7 @@ import { EqualOperator, FindOperator } from "typeorm";
 export class UsuariosController {
     async create(req: Request, res: Response){
 
-        const { cpf,nome,data_nasc,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,senha,username } = req.body
+        const { cpf,nome,data_nascimento,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,senha,username } = req.body
 
         try{
 
@@ -30,7 +30,7 @@ export class UsuariosController {
                 const newUsuario = usuarioRepository.create({
                     CPF: cpf, 
                     NOME: nome,
-                    DATA_NASCIMENTO: data_nasc,
+                    DATA_NASCIMENTO: data_nascimento,
                     TELEFONE: telefone,
                     EMAIL: email,
                     SENHA: senha,
@@ -83,7 +83,7 @@ export class UsuariosController {
 
     async update(req: Request, res: Response){
 
-        const { cpf,nome,data_nasc,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,id_usuario, senha } = req.body
+        const { cpf,nome,data_nascimento,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,id_usuario, senha } = req.body
 
         try{
             
@@ -106,7 +106,7 @@ export class UsuariosController {
 
                 const medicoUpdate = await medicoRepository.findOneBy({CRMV: usuarioUpdate.USUARIO_MEDICO.CRMV})
 
-                usuarioUpdate.DATA_NASCIMENTO = data_nasc != '' ? data_nasc : usuarioUpdate.DATA_NASCIMENTO
+                usuarioUpdate.DATA_NASCIMENTO = data_nascimento != '' ? data_nascimento : usuarioUpdate.DATA_NASCIMENTO
                 usuarioUpdate.EMAIL = email != '' ? email : usuarioUpdate.EMAIL
                 usuarioUpdate.ID_TIPO_USUARIO = tipoUsuarioUpdate ? tipoUsuarioUpdate : usuarioUpdate.ID_TIPO_USUARIO
                 usuarioUpdate.NOME = nome != '' ? nome : usuarioUpdate.NOME
@@ -153,6 +153,7 @@ export class UsuariosController {
            const usuarios = await usuarioRepository.find({
                 relations: {
                     ID_TIPO_USUARIO: true,
+                    ANIMAL_DE_ESTIMACAO: true,
                     ENDERECO: true,
                     USUARIO_MEDICO: true
                 }
@@ -168,7 +169,7 @@ export class UsuariosController {
 
     async getUser(req: Request, res: Response){
 
-        const { cpf,nome,data_nasc,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,id_usuario, senha } = req.body
+        const { cpf,nome,data_nascimento,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,id_usuario, senha } = req.body
         try{
 
             const getUsuario = await usuarioRepository.findOne({
@@ -178,6 +179,7 @@ export class UsuariosController {
                 relations:{
                     ID_TIPO_USUARIO: true,
                     USUARIO_MEDICO: true,
+                    ANIMAL_DE_ESTIMACAO: true,
                     ENDERECO: true
                 }
             })
@@ -194,7 +196,7 @@ export class UsuariosController {
     }
 
     async Delete(req: Request, res: Response){
-        const { cpf,nome,data_nasc,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,id_usuario, senha } = req.body
+        const { cpf,nome,data_nascimento,telefone,email,tipo,rua,bairro,cidade,complemento,cep,numero,crmv,cpf_supervisor,id_usuario, senha } = req.body
 
         try{
 

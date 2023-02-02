@@ -104,4 +104,28 @@ export class AnimalController{
          }
     }
 
+    async getAllAnimalsFromUser(req: Request, res: Response){
+        
+        const { cpf_tutor } = req.body
+        try{
+
+            const getUsuario = await usuarioRepository.findOne({
+                where:{
+                    CPF: cpf_tutor
+                },
+                relations:{
+                    ANIMAL_DE_ESTIMACAO: true
+                }
+            })
+
+            return getUsuario ? res.status(200).json(getUsuario) : res.status(404).json({message: 'Usuário não encontrado, verifique o CPF'})
+
+
+        }catch (error){
+            console.log(error)
+            res.status(500).json({message: 'Internal Server Error'})
+        }
+        
+    }
+
 }

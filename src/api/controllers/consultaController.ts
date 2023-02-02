@@ -7,7 +7,7 @@ import { medicoRepository } from "../repositories/medicoRepository";
 export class consultaController{
     async create(req: Request, res: Response){
 
-        const { id_medico, id_animal, documentos, data, status} = req.body
+        const { id_medico, id_animal, data, status} = req.body
 
         const medicoResponsavel = await medicoRepository.findOneBy({ID_MEDICO: id_medico})
         const animalPaciente = await animalRepository.findOneBy({ID_ANIMAL: id_animal})
@@ -17,7 +17,6 @@ export class consultaController{
                 const novaConsulta = await consultaRespository.create({
                     ID_MEDICO_RESPONSAVEL: medicoResponsavel,
                     ID_ANIMAL_CONSULTADO: animalPaciente,
-                    DOCUMENTOS: documentos,
                     DATA_ATENDIMENTO: data,
                     STATUS: status,
                     ATIVO: true
