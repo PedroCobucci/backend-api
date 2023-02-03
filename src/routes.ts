@@ -194,7 +194,7 @@ routes.get('/listaUsuarios',  new UsuariosController().listAllUsers)
 /**
    * @openapi
    * '/buscaUsuario':
-   *  get:
+   *  post:
    *     tags:
    *     - Usuario
    *     summary: listar um usuário
@@ -219,7 +219,7 @@ routes.get('/listaUsuarios',  new UsuariosController().listAllUsers)
    *        description: Internal Server Error
    */
 
-routes.get('/buscaUsuario',  new UsuariosController().getUser)
+routes.post('/buscaUsuario',  new UsuariosController().getUser)
 
 /**
    * @openapi
@@ -312,19 +312,11 @@ routes.post('/cadastrarConsulta', new consultaController().create)
    *           schema:
    *              type: object
    *              required:
-   *               - id_medico
-   *               - id_animal
    *               - id_consulta
    *               - data
    *               - status
    *               - documentos
    *              properties:
-   *                id_medico:
-   *                  type: number
-   *                  default: 1
-   *                id_animal:
-   *                  type: number
-   *                  default: 1
    *                id_consulta:
    *                  type: number
    *                  default: 1
@@ -399,7 +391,7 @@ routes.get('/listarConsultas',  new consultaController().listAll)
 /**
    * @openapi
    * '/buscaConsulta':
-   *  get:
+   *  post:
    *     tags:
    *     - Consultas
    *     summary: busca consulta
@@ -424,7 +416,7 @@ routes.get('/listarConsultas',  new consultaController().listAll)
    *        description: Internal Server Error
    */
 
-routes.get('/buscaConsulta',  new consultaController().getConsulta)
+routes.post('/buscaConsulta',  new consultaController().getConsulta)
 
 /**
    * @openapi
@@ -440,17 +432,9 @@ routes.get('/buscaConsulta',  new consultaController().getConsulta)
    *           schema:
    *              type: object
    *              required:
-   *               - id_medico
-   *               - id_animal
    *               - id_consulta
    *               - nota
    *              properties:
-   *                id_medico:
-   *                  type: number
-   *                  default: 1
-   *                id_animal:
-   *                  type: number
-   *                  default: 1
    *                id_consulta:
    *                  type: number
    *                  default: 1
@@ -471,7 +455,7 @@ routes.post('/cadastrarAvaliacao', new avaliacaoController().create)
 /**
    * @openapi
    * '/avaliacoesDeMedico':
-   *  get:
+   *  post:
    *     tags:
    *     - Avaliação
    *     summary: listar avaliações de um medico
@@ -496,7 +480,7 @@ routes.post('/cadastrarAvaliacao', new avaliacaoController().create)
    *        description: Internal Server Error
    */
 
-routes.get('/avaliacoesDeMedico', new avaliacaoController().getAllFeedbackFromMedico)
+routes.post('/avaliacoesDeMedico', new avaliacaoController().getAllFeedbackFromMedico)
 
 
 /**
@@ -578,7 +562,7 @@ routes.post('/atualizarAnimal', new AnimalController().update)
 /**
    * @openapi
    * '/buscaAnimal':
-   *  get:
+   *  post:
    *     tags:
    *     - Animal
    *     summary: busca um Animal
@@ -603,7 +587,7 @@ routes.post('/atualizarAnimal', new AnimalController().update)
    *        description: Internal Server Error
    */
 
-routes.get('/buscaAnimal', new AnimalController().getAnimal)
+routes.post('/buscaAnimal', new AnimalController().getAnimal)
 
 /**
    * @openapi
@@ -622,7 +606,7 @@ routes.get('/buscaAnimal', new AnimalController().getAnimal)
    *               - id_animal
    *              properties:
    *                id_animal:
-   *                  type: string
+   *                  type: number
    *                  default: 1
    *     responses:
    *      200:
@@ -638,7 +622,7 @@ routes.delete('/deletarAnimal', new AnimalController().delete)
 /**
    * @openapi
    * '/listarAnimaisDeTutor':
-   *  get:
+   *  post:
    *     tags:
    *     - Animal
    *     summary: listar os animais de um usuário
@@ -663,7 +647,7 @@ routes.delete('/deletarAnimal', new AnimalController().delete)
    *        description: Internal Server Error
    */
 
-routes.get('/listarAnimaisDeTutor', new AnimalController().getAllAnimalsFromUser)
+routes.post('/listarAnimaisDeTutor', new AnimalController().getAllAnimalsFromUser)
 
 
 

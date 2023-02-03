@@ -10,7 +10,15 @@ export class consultaController{
         const { id_medico, id_animal, data, status} = req.body
 
         const medicoResponsavel = await medicoRepository.findOneBy({ID_MEDICO: id_medico})
-        const animalPaciente = await animalRepository.findOneBy({ID_ANIMAL: id_animal})
+        const animalPaciente = await animalRepository.findOne({
+            where:{
+                ID_ANIMAL: id_animal
+            },
+            relations:{
+                ID_TUTOR: true
+            }
+            
+        })
         
         try{
             if(medicoResponsavel && animalPaciente){
@@ -18,12 +26,13 @@ export class consultaController{
                     ID_MEDICO_RESPONSAVEL: medicoResponsavel,
                     ID_ANIMAL_CONSULTADO: animalPaciente,
                     DATA_ATENDIMENTO: data,
+                    USUARIO: animalPaciente.ID_TUTOR,
                     STATUS: status,
                     ATIVO: true
                 })
                 await consultaRespository.save(novaConsulta)
 
-                return res.status(200).json(novaConsulta)
+                return res.status(201).json(novaConsulta)
             }else{
                 return res.status(404).json({message: 'Não foi possível encontrar Medico ou Animal.'})
             }
@@ -33,7 +42,7 @@ export class consultaController{
     }
 
     async update(req: Request, res: Response){
-        const { id_medico, id_animal,documentos, data, status, id_consulta} = req.body
+        const { documentos, data, status, id_consulta} = req.body
 
 
         const updateConsulta = await consultaRespository.findOneBy({ID_CONSULTA: id_consulta})
@@ -45,13 +54,13 @@ export class consultaController{
                 updateConsulta.DATA_ATENDIMENTO = data != '' ? data : updateConsulta.DATA_ATENDIMENTO
                 updateConsulta.DOCUMENTOS = documentos != '' ? documentos : updateConsulta.DOCUMENTOS
                 updateConsulta.FEEDBACK_ATENDIMENTO = avaliacaoDaConsulta ? avaliacaoDaConsulta.ID_AVALIACAO : updateConsulta.FEEDBACK_ATENDIMENTO
-                updateConsulta.ID_ANIMAL_CONSULTADO = id_animal != '' ? id_animal : updateConsulta.ID_ANIMAL_CONSULTADO
-                updateConsulta.ID_MEDICO_RESPONSAVEL = id_medico != '' ? id_medico : updateConsulta.ID_MEDICO_RESPONSAVEL
                 updateConsulta.STATUS = data != '' ? status : updateConsulta.STATUS
+                //updateConsulta.ID_ANIMAL_CONSULTADO = id_animal != '' ? id_animal : updateConsulta.ID_ANIMAL_CONSULTADO
+                //updateConsulta.ID_MEDICO_RESPONSAVEL = id_medico != '' ? id_medico : updateConsulta.ID_MEDICO_RESPONSAVEL
 
                 await consultaRespository.save(updateConsulta)
 
-                return res.status(200).json(updateConsulta)
+                return res.status(201).json(updateConsulta)
             }else{
                 return res.status(404).json({message: 'Não foi possível encontrar consulta.'})
             }
@@ -114,7 +123,8 @@ export class consultaController{
                 relations:{
                     ID_ANIMAL_CONSULTADO: true,
                     ID_MEDICO_RESPONSAVEL: true,
-                    ID_AVALIACAO_REALIZADA: true
+                    ID_AVALIACAO_REALIZADA: true,
+                    USUARIO: true
                 }
             })
 
@@ -125,6 +135,28 @@ export class consultaController{
             console.log(error)
             res.status(500).json({message: 'Internal Server Error'})
         }
+    }
+
+    async getUserFromPet(id_animal: number){
+        
+        try{
+
+            const getUserFromPet = await animalRepository.findOne({
+                where: {
+                    ID_ANIMAL: id_animal
+                },
+                relations: {
+                    ID_TUTOR: true
+                }
+            })
+
+            return getUserFromPet ? getUserFromPet : null
+
+
+        }catch (error){
+            return console.log(error)
+        }
+        
     }
 
 

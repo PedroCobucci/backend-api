@@ -15,7 +15,8 @@ export class AnimalController{
                 const novoAnimal = await  animalRepository.create({
                     ESPECIE: especie,
                     NOME: nome,
-                    ID_TUTOR: tutorDoAnimal
+                    ID_TUTOR: tutorDoAnimal,
+                    ATIVO: true
                 })
                 
                 await animalRepository.save(novoAnimal)

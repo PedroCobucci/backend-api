@@ -104,7 +104,17 @@ export class UsuariosController {
 
                 const enderecoUpdate = await enderecoRepository.findOneBy({ID_ENDERECO: usuarioUpdate.ENDERECO.ID_ENDERECO})
 
-                const medicoUpdate = await medicoRepository.findOneBy({CRMV: usuarioUpdate.USUARIO_MEDICO.CRMV})
+                if(usuarioUpdate.USUARIO_MEDICO){
+                    const medicoUpdate = await medicoRepository.findOneBy({CRMV: usuarioUpdate.USUARIO_MEDICO.CRMV})
+                    
+                    if(medicoUpdate){
+                        medicoUpdate.CPF_SUPERVISOR = cpf_supervisor != '' ? cpf_supervisor : medicoUpdate.CPF_SUPERVISOR
+                        medicoUpdate.CRMV = crmv != '' ? crmv : medicoUpdate.CRMV
+
+                        await medicoRepository.save(medicoUpdate)
+                    }
+                }
+               
 
                 usuarioUpdate.DATA_NASCIMENTO = data_nascimento != '' ? data_nascimento : usuarioUpdate.DATA_NASCIMENTO
                 usuarioUpdate.EMAIL = email != '' ? email : usuarioUpdate.EMAIL
@@ -122,13 +132,6 @@ export class UsuariosController {
                     enderecoUpdate.RUA = rua != '' ? rua : enderecoUpdate.RUA
 
                     await enderecoRepository.save(enderecoUpdate)
-                }
-
-                if(medicoUpdate){
-                    medicoUpdate.CPF_SUPERVISOR = cpf_supervisor != '' ? cpf_supervisor : medicoUpdate.CPF_SUPERVISOR
-                    medicoUpdate.CRMV = crmv != '' ? crmv : medicoUpdate.CRMV
-
-                    await medicoRepository.save(medicoUpdate)
                 }
             
                 await usuarioRepository.save(usuarioUpdate)

@@ -28,14 +28,18 @@ export class CONSULTA{
     @Column({type: 'date'})
     DATA_ATENDIMENTO: Date
 
-    @Column({type: 'int'})
-    STATUS: number
+    @Column({type: 'varchar'})
+    STATUS: string
 
     @Column({type: 'boolean'})
     ATIVO: boolean
 
     @OneToOne(() => AVALIACAO, AVALIACAO => AVALIACAO.ID_CONSULTA_REALIZADA)
     ID_AVALIACAO_REALIZADA: AVALIACAO
+
+    @ManyToOne(() => USUARIO, USUARIO => USUARIO.CONSULTA)
+    @JoinColumn({name: 'ID_TUTOR'})
+    USUARIO: USUARIO
 
 
 }
