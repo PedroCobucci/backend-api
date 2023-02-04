@@ -20,11 +20,13 @@ import buscaAnimal from './api/routes/animais/buscaAnimal'
 import deletarAnimal from './api/routes/animais/deletarAnimal'
 import listarAnimaisDeTutor from './api/routes/animais/listaAnimaisDeTutor'
 import auth from './api/routes/auth/logar'
+import cors from 'cors'
 
 AppDataSource.initialize().then(() => {
     const app = express()
 
     app.use(express.json())
+    app.use(cors()) 
 
     app.use(auth)
 
@@ -55,3 +57,4 @@ AppDataSource.initialize().then(() => {
         swaggerDocs(app, Number(process.env.PORT))
     })
 })
+
