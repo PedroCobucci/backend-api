@@ -3,9 +3,8 @@ import { enderecoRepository } from "../repositories/enderecoRepository";
 import { medicoRepository } from "../repositories/medicoRepository";
 import { tipoUsuarioRepository } from "../repositories/tipoUsuarioRepository";
 import { usuarioRepository } from "../repositories/usuarioRespository";
-import { USUARIO } from "../entities/usuarios"
-import {UserDTOs } from "../models/usuarioDto";
-import { TIPO_USUARIO } from "../entities/tipoUsuario";
+import { USUARIO } from "../models/usuarios"
+import { TIPO_USUARIO } from "../models/tipoUsuario";
 import { EqualOperator, FindOperator } from "typeorm";
 
 export class UsuariosController {
