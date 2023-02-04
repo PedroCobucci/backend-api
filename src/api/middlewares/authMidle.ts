@@ -8,7 +8,7 @@ import 'dotenv/config'
 export class AuthMidle{
     async checkToken(req: Request, res: Response, next: any){
         const auth = req.headers.authorization;
-
+        const token: string = process.env.SECRET ? process.env.SECRET : ""
         if(!auth){
             return res.status(401).json({error: true, message: "token não indentificado"})
         }
@@ -16,7 +16,7 @@ export class AuthMidle{
 
         try{
 
-            const decoded = jwt.verify(auth, "e13bf746f67fbbee5df6926e86cad5ec6a2cc305643d3d849b1bda1ba4f85062");
+            const decoded = jwt.verify(auth, token);
 
             if(!decoded){
                 return res.status(401).json({error: true,message: "O token está expirado!"})

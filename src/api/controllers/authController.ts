@@ -6,7 +6,8 @@ import 'dotenv/config'
 export class AuthController {
     async checkAuth(req: Request, res: Response){
         const {username, senha} = req.body
-
+        const token: string = process.env.SECRET ? process.env.SECRET : ""
+        
         try{
 
             const logarUsuario = await usuarioRepository.findOneBy({USERNAME: username, SENHA: senha, ATIVO: true})
@@ -18,7 +19,7 @@ export class AuthController {
                   },
                   token: jwt.sign(
                     {id: logarUsuario.ID_USUARIO}, 
-                    "e13bf746f67fbbee5df6926e86cad5ec6a2cc305643d3d849b1bda1ba4f85062",
+                    token,
                     {expiresIn: process.env.EXPIRE } 
                   )
             }
