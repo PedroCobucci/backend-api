@@ -99,10 +99,11 @@ export class UsuariosController {
                     ENDERECO: true
                 }
             })
+
             
             if(usuarioUpdate){
 
-                const enderecoUpdate = await enderecoRepository.findOneBy({ID_ENDERECO: usuarioUpdate.ENDERECO.ID_ENDERECO})
+                const enderecoUpdate = await enderecoRepository.findOneBy({ID_ENDERECO: usuarioUpdate.ENDERECO[0].ID_ENDERECO})
 
                 if(usuarioUpdate.USUARIO_MEDICO){
                     const medicoUpdate = await medicoRepository.findOneBy({CRMV: usuarioUpdate.USUARIO_MEDICO.CRMV})

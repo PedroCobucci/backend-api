@@ -1,15 +1,8 @@
 import { Router } from "express";
-import { AnimalController } from "./api/controllers/animalController";
-import { AuthController } from "./api/controllers/authController";
-import { avaliacaoController } from "./api/controllers/avaliacaoController";
-import { consultaController } from "./api/controllers/consultaController";
 import { tipoUsuarioController } from "./api/controllers/tipoUsuarioController";
-import { UsuariosController } from "./api/controllers/usuarioController";
+import { AuthMidle } from "./api/middlewares/authMidle";
 
 const routes = Router()
-
-routes.post('/auth', new AuthController().checkAuth)
-
 
 /**
    * @openapi
@@ -41,7 +34,7 @@ routes.post('/auth', new AuthController().checkAuth)
    *              properties:
    *                cpf:
    *                  type: string
-   *                  default: 111.111.111.34
+   *                  default: 111.111.111-34
    *                nome:
    *                  type: string
    *                  default: predo rodrigues
@@ -89,7 +82,7 @@ routes.post('/auth', new AuthController().checkAuth)
    *      500:
    *        description: Internal Server Error
    */
-routes.post('/cadastrarUsuario', new UsuariosController().create)
+//routes.post('/cadastrarUsuario', new UsuariosController().create)
 
 
 /**
@@ -122,7 +115,7 @@ routes.post('/cadastrarUsuario', new UsuariosController().create)
    *              properties:
    *                cpf:
    *                  type: string
-   *                  default: 111.111.111.34
+   *                  default: 111.111.111-34
    *                nome:
    *                  type: string
    *                  default: predo rodrigues
@@ -170,8 +163,8 @@ routes.post('/cadastrarUsuario', new UsuariosController().create)
    *      500:
    *        description: Internal Server Error
    */
-routes.post('/atualizarUsuario', new UsuariosController().update)
-routes.post('/cadastrarTipo', new tipoUsuarioController().create)
+//routes.post('/atualizarUsuario', new UsuariosController().update)
+routes.post('/cadastrarTipo', new AuthMidle().checkToken ,new tipoUsuarioController().create)
 
 /**
    * @openapi
@@ -189,7 +182,7 @@ routes.post('/cadastrarTipo', new tipoUsuarioController().create)
    *        description: Internal Server Error
    */
 
-routes.get('/listaUsuarios',  new UsuariosController().listAllUsers)
+//routes.get('/listaUsuarios',  new UsuariosController().listAllUsers)
 
 /**
    * @openapi
@@ -209,7 +202,7 @@ routes.get('/listaUsuarios',  new UsuariosController().listAllUsers)
    *              properties:
    *                cpf:
    *                  type: string
-   *                  default: 111.111.111.34
+   *                  default: 111.111.111-34
    *     responses:
    *      200:
    *        description: Success
@@ -219,7 +212,7 @@ routes.get('/listaUsuarios',  new UsuariosController().listAllUsers)
    *        description: Internal Server Error
    */
 
-routes.post('/buscaUsuario',  new UsuariosController().getUser)
+//routes.post('/buscaUsuario',  new UsuariosController().getUser)
 
 /**
    * @openapi
@@ -239,7 +232,7 @@ routes.post('/buscaUsuario',  new UsuariosController().getUser)
    *              properties:
    *                cpf:
    *                  type: string
-   *                  default: 111.111.111.34
+   *                  default: 111.111.111-34
    *     responses:
    *      200:
    *        description: Success
@@ -249,7 +242,7 @@ routes.post('/buscaUsuario',  new UsuariosController().getUser)
    *        description: Internal Server Error
    */
 
-routes.delete('/deletarUsuario',  new UsuariosController().Delete)
+//routes.delete('/deletarUsuario',  new UsuariosController().Delete)
 
 
 
@@ -296,7 +289,7 @@ routes.delete('/deletarUsuario',  new UsuariosController().Delete)
    *        description: Internal Server Error
    */
 
-routes.post('/cadastrarConsulta', new consultaController().create)
+//routes.post('/cadastrarConsulta', new consultaController().create)
 
 /**
    * @openapi
@@ -338,7 +331,7 @@ routes.post('/cadastrarConsulta', new consultaController().create)
    *        description: Internal Server Error
    */
 
-routes.post('/atualizarConsulta',  new consultaController().update)
+//routes.post('/atualizarConsulta',  new consultaController().update)
 
 /**
    * @openapi
@@ -368,7 +361,7 @@ routes.post('/atualizarConsulta',  new consultaController().update)
    *        description: Internal Server Error
    */
 
-routes.delete('/deletarConsulta',  new consultaController().delete)
+//routes.delete('/deletarConsulta',  new consultaController().delete)
 
 /**
    * @openapi
@@ -386,7 +379,7 @@ routes.delete('/deletarConsulta',  new consultaController().delete)
    *        description: Internal Server Error
    */
 
-routes.get('/listarConsultas',  new consultaController().listAll)
+//routes.get('/listarConsultas', new AuthMidle().checkToken ,new consultaController().listAll)
 
 /**
    * @openapi
@@ -416,7 +409,7 @@ routes.get('/listarConsultas',  new consultaController().listAll)
    *        description: Internal Server Error
    */
 
-routes.post('/buscaConsulta',  new consultaController().getConsulta)
+//routes.post('/buscaConsulta',  new consultaController().getConsulta)
 
 /**
    * @openapi
@@ -450,7 +443,7 @@ routes.post('/buscaConsulta',  new consultaController().getConsulta)
    *        description: Internal Server Error
    */
 
-routes.post('/cadastrarAvaliacao', new avaliacaoController().create)
+//routes.post('/cadastrarAvaliacao', new avaliacaoController().create)
 
 /**
    * @openapi
@@ -470,7 +463,7 @@ routes.post('/cadastrarAvaliacao', new avaliacaoController().create)
    *              properties:
    *                cpf:
    *                  type: string
-   *                  default: 111.111.111.34
+   *                  default: 111.111.111-34
    *     responses:
    *      200:
    *        description: Success
@@ -480,7 +473,7 @@ routes.post('/cadastrarAvaliacao', new avaliacaoController().create)
    *        description: Internal Server Error
    */
 
-routes.post('/avaliacoesDeMedico', new avaliacaoController().getAllFeedbackFromMedico)
+//routes.post('/avaliacoesDeMedico', new avaliacaoController().getAllFeedbackFromMedico)
 
 
 /**
@@ -519,7 +512,7 @@ routes.post('/avaliacoesDeMedico', new avaliacaoController().getAllFeedbackFromM
    *        description: Internal Server Error
    */
 
-routes.post('/cadastrarAnimal', new AnimalController().create)
+//routes.post('/cadastrarAnimal', new AnimalController().create)
 
 /**
    * @openapi
@@ -557,7 +550,7 @@ routes.post('/cadastrarAnimal', new AnimalController().create)
    *        description: Internal Server Error
    */
 
-routes.post('/atualizarAnimal', new AnimalController().update)
+//routes.post('/atualizarAnimal', new AnimalController().update)
 
 /**
    * @openapi
@@ -587,7 +580,7 @@ routes.post('/atualizarAnimal', new AnimalController().update)
    *        description: Internal Server Error
    */
 
-routes.post('/buscaAnimal', new AnimalController().getAnimal)
+//routes.post('/buscaAnimal', new AnimalController().getAnimal)
 
 /**
    * @openapi
@@ -617,7 +610,7 @@ routes.post('/buscaAnimal', new AnimalController().getAnimal)
    *        description: Internal Server Error
    */
 
-routes.delete('/deletarAnimal', new AnimalController().delete)
+//routes.delete('/deletarAnimal', new AnimalController().delete)
 
 /**
    * @openapi
@@ -647,7 +640,7 @@ routes.delete('/deletarAnimal', new AnimalController().delete)
    *        description: Internal Server Error
    */
 
-routes.post('/listarAnimaisDeTutor', new AnimalController().getAllAnimalsFromUser)
+//routes.post('/listarAnimaisDeTutor', new AnimalController().getAllAnimalsFromUser)
 
 
 
